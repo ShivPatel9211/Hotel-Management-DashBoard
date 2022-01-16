@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+    <div class="right">
+        <form method="post" enctype="multipart/form-data">
+            <div class="col-12 text-center">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-info">
+                  {{message}}
+                </div>
+                {% endfor %}
+                {% endif %}
+              </div>
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="Arrival Date">Room No: <span style="color:crimson;font-weight: bold; font-size: larger;">{{room.room_no}}</span></label>
+                <input type="hidden" value="{{room.room_no}}" name="room_no">
+            </div>
+            <div class="form-group">
+                <label for="Arrival Date">Room Rent Per Night: <span style="color: crimson; font-weight:bold;font-size: larger;">Rs. {{room.room_rate}}</span> </label>
+                <input type="hidden" value="{{room.room_rate}}" name="room_rate" >
+            </div>
+            <div class="form-group">
+                <label for="room_type">Room Type : <span style="color: crimson; font-weight:bold;font-size: larger;">{{room.room_type}}</span> </label>
+                <input type="hidden" value="{{room.room_type}}" name="room_type" >
+            </div>
+            <div class="form-group">
+              <label for="check In Date">Check In Date</label>
+              <input type="date" class="form-control" id="check In Date" name="check_in_date" min="{{min_date}}" max="{{last_date}}"onchange="myFunction()">
+            </div>
+            <div class="form-group">
+              <label for="check Out Date">Check Out Date</label>
+              <input type="date" class="form-control" id="check Out Date" name="check_out_date" min="" value="">
+            </div>
+              <div class="form-group">
+                <label for="Arrival Date">No of People</label>
+                <select class="form-control" name="no_of_people">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-success text-center">Confirm Reservation</button>
+              </div>
+          </form>
+    </div>
+  
+  </div>
+  <script>
+function myFunction() {
+  let val=document.getElementById("check In Date").value
+  document.getElementById("check Out Date").min=val
+  document.getElementById("check Out Date").value=val
+}
+  </script>
+{% endblock %}
